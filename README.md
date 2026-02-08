@@ -70,9 +70,7 @@ Mini-Projet-Docker/
 │   ├── model.py                # Architecture DNN (PyTorch)
 │   └── utils.py                # Fonctions utilitaires
 │
-├── 📁 notebooks/               # Jupyter notebooks
-│   └── Prédiction_Énergie.ipynb
-│
+├── dl-optimiser.ipynb          # Notebook Jupyter (exploration & entraînement)
 ├── app_api.py                  # API FastAPI
 ├── test_api.py                 # Tests de l'API
 ├── Dockerfile.train            # Image Docker pour l'entraînement

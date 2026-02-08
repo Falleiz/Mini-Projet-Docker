@@ -1,0 +1,32 @@
+# docker-compose.yml - Orchestration des services
+# Commandes:
+#   docker-compose run train     → Entraîner le modèle
+#   docker-compose up api        → Lancer l'API
+#   docker-compose up -d api     → Lancer l'API en arrière-plan
+
+version: "3.8"
+
+services:
+  # Service d'entraînement (one-shot)
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./data:/app/data:ro # Données CSV (lecture seule)
+      - ./models:/app/models # Artefacts du modèle (écriture)
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # Service API (serveur continu)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    volumes:
+      - ./models:/app/models:ro # Modèle entraîné (lecture seule)
+    ports:
+      - "8000:8000" # Expose le port 8000
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on: [] # Pas de dépendance stricte (modèle pré-existant)
